@@ -451,6 +451,9 @@ class Style extends Evented {
         layer.setEventedParent(this, {layer: {id: id}});
 
         const index = before ? this._order.indexOf(before) : this._order.length;
+        if (index < 0) {
+            util.warnOnce("Layer '" + before + "' does not exist");
+        }
         this._order.splice(index, 0, id);
 
         this._layers[id] = layer;
@@ -501,6 +504,9 @@ class Style extends Evented {
         this._order.splice(index, 1);
 
         const newIndex = before ? this._order.indexOf(before) : this._order.length;
+        if (newIndex < 0) {
+            util.warnOnce("Layer '" + before + "' does not exist");
+        }
         this._order.splice(newIndex, 0, id);
 
         if (layer.type === 'symbol') {
